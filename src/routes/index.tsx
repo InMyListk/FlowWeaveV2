@@ -38,8 +38,20 @@ function Content() {
       toast.success("Workflow creation triggered");
     },
   });
+  const ConvexAIResult = useMutation(api.backgroundJobs.aiGenerateContentBackground);
+  const generateAIContent = tanstackUseMutation({
+    mutationFn: async () => {
+      return await ConvexAIResult({});
+    },
+    onSuccess: (data) => {
+      console.log("AI Result:", data.result);
+      toast.success("AI generation triggered");
+    },
+  });
   return <div>Authenticated content:
     <Button disabled={create.isPending} onClick={() => create.mutate()}>Create Workflow</Button>
     WorkFlow: {JSON.stringify(Workflows)}
+    <Button disabled={generateAIContent.isPending} onClick={() => generateAIContent.mutate()}>Generate AI Content</Button>
+    AI Result: {generateAIContent.data?.result}
   </div>;
 }
