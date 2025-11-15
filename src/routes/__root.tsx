@@ -2,11 +2,10 @@ import {
   HeadContent,
   Scripts,
   createRootRouteWithContext,
+  redirect,
 } from '@tanstack/react-router'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
-
-import Header from '../components/Header'
 
 import ConvexProvider from '../integrations/convex/provider'
 
@@ -43,6 +42,18 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
   }),
 
   shellComponent: RootDocument,
+  beforeLoad: ({ location }) => {
+    // Check if the current URL path is the root "/"
+    // and is not already navigating to the target
+    if (location.pathname === '/') {
+      // Throw the redirect to the desired route
+      throw redirect({
+        to: '/workflows',
+        // Optional: `replace: true` prevents adding the "/" path to the browser history
+        replace: true
+      });
+    }
+  },
 })
 
 function RootDocument({ children }: { children: React.ReactNode }) {
@@ -53,7 +64,6 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <ConvexProvider>
-          <Header />
           {children}
           <TanStackDevtools
             config={{

@@ -9,185 +9,141 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as DashboardRouteImport } from './routes/_dashboard'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as DemoTanstackQueryRouteImport } from './routes/demo/tanstack-query'
-import { Route as DemoConvexRouteImport } from './routes/demo/convex'
-import { Route as DemoStartServerFuncsRouteImport } from './routes/demo/start.server-funcs'
-import { Route as DemoStartApiRequestRouteImport } from './routes/demo/start.api-request'
-import { Route as DemoSentryTestingRouteImport } from './routes/demo/sentry.testing'
-import { Route as DemoApiTqTodosRouteImport } from './routes/demo/api.tq-todos'
-import { Route as DemoApiNamesRouteImport } from './routes/demo/api.names'
-import { Route as DemoStartSsrIndexRouteImport } from './routes/demo/start.ssr.index'
-import { Route as DemoStartSsrSpaModeRouteImport } from './routes/demo/start.ssr.spa-mode'
-import { Route as DemoStartSsrFullSsrRouteImport } from './routes/demo/start.ssr.full-ssr'
-import { Route as DemoStartSsrDataOnlyRouteImport } from './routes/demo/start.ssr.data-only'
+import { Route as DashboardRestRouteImport } from './routes/_dashboard/_rest'
+import { Route as DashboardRestWorkflowsRouteImport } from './routes/_dashboard/_rest/workflows'
+import { Route as DashboardRestExecutionsIndexRouteImport } from './routes/_dashboard/_rest/executions/index'
+import { Route as DashboardRestCredentialsIndexRouteImport } from './routes/_dashboard/_rest/credentials/index'
+import { Route as DashboardRestExecutionsExecutionsIdRouteImport } from './routes/_dashboard/_rest/executions/$executionsId'
+import { Route as DashboardRestCredentialsCredentialsIdRouteImport } from './routes/_dashboard/_rest/credentials/$credentialsId'
+import { Route as DashboardEditorWorkflowsWorkflowsIdRouteImport } from './routes/_dashboard/_editor/workflows/$workflowsId'
 
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/_dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DemoTanstackQueryRoute = DemoTanstackQueryRouteImport.update({
-  id: '/demo/tanstack-query',
-  path: '/demo/tanstack-query',
-  getParentRoute: () => rootRouteImport,
+const DashboardRestRoute = DashboardRestRouteImport.update({
+  id: '/_rest',
+  getParentRoute: () => DashboardRoute,
 } as any)
-const DemoConvexRoute = DemoConvexRouteImport.update({
-  id: '/demo/convex',
-  path: '/demo/convex',
-  getParentRoute: () => rootRouteImport,
+const DashboardRestWorkflowsRoute = DashboardRestWorkflowsRouteImport.update({
+  id: '/workflows',
+  path: '/workflows',
+  getParentRoute: () => DashboardRestRoute,
 } as any)
-const DemoStartServerFuncsRoute = DemoStartServerFuncsRouteImport.update({
-  id: '/demo/start/server-funcs',
-  path: '/demo/start/server-funcs',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DemoStartApiRequestRoute = DemoStartApiRequestRouteImport.update({
-  id: '/demo/start/api-request',
-  path: '/demo/start/api-request',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DemoSentryTestingRoute = DemoSentryTestingRouteImport.update({
-  id: '/demo/sentry/testing',
-  path: '/demo/sentry/testing',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DemoApiTqTodosRoute = DemoApiTqTodosRouteImport.update({
-  id: '/demo/api/tq-todos',
-  path: '/demo/api/tq-todos',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DemoApiNamesRoute = DemoApiNamesRouteImport.update({
-  id: '/demo/api/names',
-  path: '/demo/api/names',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DemoStartSsrIndexRoute = DemoStartSsrIndexRouteImport.update({
-  id: '/demo/start/ssr/',
-  path: '/demo/start/ssr/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DemoStartSsrSpaModeRoute = DemoStartSsrSpaModeRouteImport.update({
-  id: '/demo/start/ssr/spa-mode',
-  path: '/demo/start/ssr/spa-mode',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DemoStartSsrFullSsrRoute = DemoStartSsrFullSsrRouteImport.update({
-  id: '/demo/start/ssr/full-ssr',
-  path: '/demo/start/ssr/full-ssr',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DemoStartSsrDataOnlyRoute = DemoStartSsrDataOnlyRouteImport.update({
-  id: '/demo/start/ssr/data-only',
-  path: '/demo/start/ssr/data-only',
-  getParentRoute: () => rootRouteImport,
-} as any)
+const DashboardRestExecutionsIndexRoute =
+  DashboardRestExecutionsIndexRouteImport.update({
+    id: '/executions/',
+    path: '/executions/',
+    getParentRoute: () => DashboardRestRoute,
+  } as any)
+const DashboardRestCredentialsIndexRoute =
+  DashboardRestCredentialsIndexRouteImport.update({
+    id: '/credentials/',
+    path: '/credentials/',
+    getParentRoute: () => DashboardRestRoute,
+  } as any)
+const DashboardRestExecutionsExecutionsIdRoute =
+  DashboardRestExecutionsExecutionsIdRouteImport.update({
+    id: '/executions/$executionsId',
+    path: '/executions/$executionsId',
+    getParentRoute: () => DashboardRestRoute,
+  } as any)
+const DashboardRestCredentialsCredentialsIdRoute =
+  DashboardRestCredentialsCredentialsIdRouteImport.update({
+    id: '/credentials/$credentialsId',
+    path: '/credentials/$credentialsId',
+    getParentRoute: () => DashboardRestRoute,
+  } as any)
+const DashboardEditorWorkflowsWorkflowsIdRoute =
+  DashboardEditorWorkflowsWorkflowsIdRouteImport.update({
+    id: '/_editor/workflows/$workflowsId',
+    path: '/workflows/$workflowsId',
+    getParentRoute: () => DashboardRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/demo/convex': typeof DemoConvexRoute
-  '/demo/tanstack-query': typeof DemoTanstackQueryRoute
-  '/demo/api/names': typeof DemoApiNamesRoute
-  '/demo/api/tq-todos': typeof DemoApiTqTodosRoute
-  '/demo/sentry/testing': typeof DemoSentryTestingRoute
-  '/demo/start/api-request': typeof DemoStartApiRequestRoute
-  '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
-  '/demo/start/ssr/data-only': typeof DemoStartSsrDataOnlyRoute
-  '/demo/start/ssr/full-ssr': typeof DemoStartSsrFullSsrRoute
-  '/demo/start/ssr/spa-mode': typeof DemoStartSsrSpaModeRoute
-  '/demo/start/ssr': typeof DemoStartSsrIndexRoute
+  '/workflows': typeof DashboardRestWorkflowsRoute
+  '/workflows/$workflowsId': typeof DashboardEditorWorkflowsWorkflowsIdRoute
+  '/credentials/$credentialsId': typeof DashboardRestCredentialsCredentialsIdRoute
+  '/executions/$executionsId': typeof DashboardRestExecutionsExecutionsIdRoute
+  '/credentials': typeof DashboardRestCredentialsIndexRoute
+  '/executions': typeof DashboardRestExecutionsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/demo/convex': typeof DemoConvexRoute
-  '/demo/tanstack-query': typeof DemoTanstackQueryRoute
-  '/demo/api/names': typeof DemoApiNamesRoute
-  '/demo/api/tq-todos': typeof DemoApiTqTodosRoute
-  '/demo/sentry/testing': typeof DemoSentryTestingRoute
-  '/demo/start/api-request': typeof DemoStartApiRequestRoute
-  '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
-  '/demo/start/ssr/data-only': typeof DemoStartSsrDataOnlyRoute
-  '/demo/start/ssr/full-ssr': typeof DemoStartSsrFullSsrRoute
-  '/demo/start/ssr/spa-mode': typeof DemoStartSsrSpaModeRoute
-  '/demo/start/ssr': typeof DemoStartSsrIndexRoute
+  '/workflows': typeof DashboardRestWorkflowsRoute
+  '/workflows/$workflowsId': typeof DashboardEditorWorkflowsWorkflowsIdRoute
+  '/credentials/$credentialsId': typeof DashboardRestCredentialsCredentialsIdRoute
+  '/executions/$executionsId': typeof DashboardRestExecutionsExecutionsIdRoute
+  '/credentials': typeof DashboardRestCredentialsIndexRoute
+  '/executions': typeof DashboardRestExecutionsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/demo/convex': typeof DemoConvexRoute
-  '/demo/tanstack-query': typeof DemoTanstackQueryRoute
-  '/demo/api/names': typeof DemoApiNamesRoute
-  '/demo/api/tq-todos': typeof DemoApiTqTodosRoute
-  '/demo/sentry/testing': typeof DemoSentryTestingRoute
-  '/demo/start/api-request': typeof DemoStartApiRequestRoute
-  '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
-  '/demo/start/ssr/data-only': typeof DemoStartSsrDataOnlyRoute
-  '/demo/start/ssr/full-ssr': typeof DemoStartSsrFullSsrRoute
-  '/demo/start/ssr/spa-mode': typeof DemoStartSsrSpaModeRoute
-  '/demo/start/ssr/': typeof DemoStartSsrIndexRoute
+  '/_dashboard': typeof DashboardRouteWithChildren
+  '/_dashboard/_rest': typeof DashboardRestRouteWithChildren
+  '/_dashboard/_rest/workflows': typeof DashboardRestWorkflowsRoute
+  '/_dashboard/_editor/workflows/$workflowsId': typeof DashboardEditorWorkflowsWorkflowsIdRoute
+  '/_dashboard/_rest/credentials/$credentialsId': typeof DashboardRestCredentialsCredentialsIdRoute
+  '/_dashboard/_rest/executions/$executionsId': typeof DashboardRestExecutionsExecutionsIdRoute
+  '/_dashboard/_rest/credentials/': typeof DashboardRestCredentialsIndexRoute
+  '/_dashboard/_rest/executions/': typeof DashboardRestExecutionsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/demo/convex'
-    | '/demo/tanstack-query'
-    | '/demo/api/names'
-    | '/demo/api/tq-todos'
-    | '/demo/sentry/testing'
-    | '/demo/start/api-request'
-    | '/demo/start/server-funcs'
-    | '/demo/start/ssr/data-only'
-    | '/demo/start/ssr/full-ssr'
-    | '/demo/start/ssr/spa-mode'
-    | '/demo/start/ssr'
+    | '/workflows'
+    | '/workflows/$workflowsId'
+    | '/credentials/$credentialsId'
+    | '/executions/$executionsId'
+    | '/credentials'
+    | '/executions'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/demo/convex'
-    | '/demo/tanstack-query'
-    | '/demo/api/names'
-    | '/demo/api/tq-todos'
-    | '/demo/sentry/testing'
-    | '/demo/start/api-request'
-    | '/demo/start/server-funcs'
-    | '/demo/start/ssr/data-only'
-    | '/demo/start/ssr/full-ssr'
-    | '/demo/start/ssr/spa-mode'
-    | '/demo/start/ssr'
+    | '/workflows'
+    | '/workflows/$workflowsId'
+    | '/credentials/$credentialsId'
+    | '/executions/$executionsId'
+    | '/credentials'
+    | '/executions'
   id:
     | '__root__'
     | '/'
-    | '/demo/convex'
-    | '/demo/tanstack-query'
-    | '/demo/api/names'
-    | '/demo/api/tq-todos'
-    | '/demo/sentry/testing'
-    | '/demo/start/api-request'
-    | '/demo/start/server-funcs'
-    | '/demo/start/ssr/data-only'
-    | '/demo/start/ssr/full-ssr'
-    | '/demo/start/ssr/spa-mode'
-    | '/demo/start/ssr/'
+    | '/_dashboard'
+    | '/_dashboard/_rest'
+    | '/_dashboard/_rest/workflows'
+    | '/_dashboard/_editor/workflows/$workflowsId'
+    | '/_dashboard/_rest/credentials/$credentialsId'
+    | '/_dashboard/_rest/executions/$executionsId'
+    | '/_dashboard/_rest/credentials/'
+    | '/_dashboard/_rest/executions/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  DemoConvexRoute: typeof DemoConvexRoute
-  DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
-  DemoApiNamesRoute: typeof DemoApiNamesRoute
-  DemoApiTqTodosRoute: typeof DemoApiTqTodosRoute
-  DemoSentryTestingRoute: typeof DemoSentryTestingRoute
-  DemoStartApiRequestRoute: typeof DemoStartApiRequestRoute
-  DemoStartServerFuncsRoute: typeof DemoStartServerFuncsRoute
-  DemoStartSsrDataOnlyRoute: typeof DemoStartSsrDataOnlyRoute
-  DemoStartSsrFullSsrRoute: typeof DemoStartSsrFullSsrRoute
-  DemoStartSsrSpaModeRoute: typeof DemoStartSsrSpaModeRoute
-  DemoStartSsrIndexRoute: typeof DemoStartSsrIndexRoute
+  DashboardRoute: typeof DashboardRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/_dashboard': {
+      id: '/_dashboard'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -195,99 +151,98 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/demo/tanstack-query': {
-      id: '/demo/tanstack-query'
-      path: '/demo/tanstack-query'
-      fullPath: '/demo/tanstack-query'
-      preLoaderRoute: typeof DemoTanstackQueryRouteImport
-      parentRoute: typeof rootRouteImport
+    '/_dashboard/_rest': {
+      id: '/_dashboard/_rest'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof DashboardRestRouteImport
+      parentRoute: typeof DashboardRoute
     }
-    '/demo/convex': {
-      id: '/demo/convex'
-      path: '/demo/convex'
-      fullPath: '/demo/convex'
-      preLoaderRoute: typeof DemoConvexRouteImport
-      parentRoute: typeof rootRouteImport
+    '/_dashboard/_rest/workflows': {
+      id: '/_dashboard/_rest/workflows'
+      path: '/workflows'
+      fullPath: '/workflows'
+      preLoaderRoute: typeof DashboardRestWorkflowsRouteImport
+      parentRoute: typeof DashboardRestRoute
     }
-    '/demo/start/server-funcs': {
-      id: '/demo/start/server-funcs'
-      path: '/demo/start/server-funcs'
-      fullPath: '/demo/start/server-funcs'
-      preLoaderRoute: typeof DemoStartServerFuncsRouteImport
-      parentRoute: typeof rootRouteImport
+    '/_dashboard/_rest/executions/': {
+      id: '/_dashboard/_rest/executions/'
+      path: '/executions'
+      fullPath: '/executions'
+      preLoaderRoute: typeof DashboardRestExecutionsIndexRouteImport
+      parentRoute: typeof DashboardRestRoute
     }
-    '/demo/start/api-request': {
-      id: '/demo/start/api-request'
-      path: '/demo/start/api-request'
-      fullPath: '/demo/start/api-request'
-      preLoaderRoute: typeof DemoStartApiRequestRouteImport
-      parentRoute: typeof rootRouteImport
+    '/_dashboard/_rest/credentials/': {
+      id: '/_dashboard/_rest/credentials/'
+      path: '/credentials'
+      fullPath: '/credentials'
+      preLoaderRoute: typeof DashboardRestCredentialsIndexRouteImport
+      parentRoute: typeof DashboardRestRoute
     }
-    '/demo/sentry/testing': {
-      id: '/demo/sentry/testing'
-      path: '/demo/sentry/testing'
-      fullPath: '/demo/sentry/testing'
-      preLoaderRoute: typeof DemoSentryTestingRouteImport
-      parentRoute: typeof rootRouteImport
+    '/_dashboard/_rest/executions/$executionsId': {
+      id: '/_dashboard/_rest/executions/$executionsId'
+      path: '/executions/$executionsId'
+      fullPath: '/executions/$executionsId'
+      preLoaderRoute: typeof DashboardRestExecutionsExecutionsIdRouteImport
+      parentRoute: typeof DashboardRestRoute
     }
-    '/demo/api/tq-todos': {
-      id: '/demo/api/tq-todos'
-      path: '/demo/api/tq-todos'
-      fullPath: '/demo/api/tq-todos'
-      preLoaderRoute: typeof DemoApiTqTodosRouteImport
-      parentRoute: typeof rootRouteImport
+    '/_dashboard/_rest/credentials/$credentialsId': {
+      id: '/_dashboard/_rest/credentials/$credentialsId'
+      path: '/credentials/$credentialsId'
+      fullPath: '/credentials/$credentialsId'
+      preLoaderRoute: typeof DashboardRestCredentialsCredentialsIdRouteImport
+      parentRoute: typeof DashboardRestRoute
     }
-    '/demo/api/names': {
-      id: '/demo/api/names'
-      path: '/demo/api/names'
-      fullPath: '/demo/api/names'
-      preLoaderRoute: typeof DemoApiNamesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/demo/start/ssr/': {
-      id: '/demo/start/ssr/'
-      path: '/demo/start/ssr'
-      fullPath: '/demo/start/ssr'
-      preLoaderRoute: typeof DemoStartSsrIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/demo/start/ssr/spa-mode': {
-      id: '/demo/start/ssr/spa-mode'
-      path: '/demo/start/ssr/spa-mode'
-      fullPath: '/demo/start/ssr/spa-mode'
-      preLoaderRoute: typeof DemoStartSsrSpaModeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/demo/start/ssr/full-ssr': {
-      id: '/demo/start/ssr/full-ssr'
-      path: '/demo/start/ssr/full-ssr'
-      fullPath: '/demo/start/ssr/full-ssr'
-      preLoaderRoute: typeof DemoStartSsrFullSsrRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/demo/start/ssr/data-only': {
-      id: '/demo/start/ssr/data-only'
-      path: '/demo/start/ssr/data-only'
-      fullPath: '/demo/start/ssr/data-only'
-      preLoaderRoute: typeof DemoStartSsrDataOnlyRouteImport
-      parentRoute: typeof rootRouteImport
+    '/_dashboard/_editor/workflows/$workflowsId': {
+      id: '/_dashboard/_editor/workflows/$workflowsId'
+      path: '/workflows/$workflowsId'
+      fullPath: '/workflows/$workflowsId'
+      preLoaderRoute: typeof DashboardEditorWorkflowsWorkflowsIdRouteImport
+      parentRoute: typeof DashboardRoute
     }
   }
 }
 
+interface DashboardRestRouteChildren {
+  DashboardRestWorkflowsRoute: typeof DashboardRestWorkflowsRoute
+  DashboardRestCredentialsCredentialsIdRoute: typeof DashboardRestCredentialsCredentialsIdRoute
+  DashboardRestExecutionsExecutionsIdRoute: typeof DashboardRestExecutionsExecutionsIdRoute
+  DashboardRestCredentialsIndexRoute: typeof DashboardRestCredentialsIndexRoute
+  DashboardRestExecutionsIndexRoute: typeof DashboardRestExecutionsIndexRoute
+}
+
+const DashboardRestRouteChildren: DashboardRestRouteChildren = {
+  DashboardRestWorkflowsRoute: DashboardRestWorkflowsRoute,
+  DashboardRestCredentialsCredentialsIdRoute:
+    DashboardRestCredentialsCredentialsIdRoute,
+  DashboardRestExecutionsExecutionsIdRoute:
+    DashboardRestExecutionsExecutionsIdRoute,
+  DashboardRestCredentialsIndexRoute: DashboardRestCredentialsIndexRoute,
+  DashboardRestExecutionsIndexRoute: DashboardRestExecutionsIndexRoute,
+}
+
+const DashboardRestRouteWithChildren = DashboardRestRoute._addFileChildren(
+  DashboardRestRouteChildren,
+)
+
+interface DashboardRouteChildren {
+  DashboardRestRoute: typeof DashboardRestRouteWithChildren
+  DashboardEditorWorkflowsWorkflowsIdRoute: typeof DashboardEditorWorkflowsWorkflowsIdRoute
+}
+
+const DashboardRouteChildren: DashboardRouteChildren = {
+  DashboardRestRoute: DashboardRestRouteWithChildren,
+  DashboardEditorWorkflowsWorkflowsIdRoute:
+    DashboardEditorWorkflowsWorkflowsIdRoute,
+}
+
+const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
+  DashboardRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  DemoConvexRoute: DemoConvexRoute,
-  DemoTanstackQueryRoute: DemoTanstackQueryRoute,
-  DemoApiNamesRoute: DemoApiNamesRoute,
-  DemoApiTqTodosRoute: DemoApiTqTodosRoute,
-  DemoSentryTestingRoute: DemoSentryTestingRoute,
-  DemoStartApiRequestRoute: DemoStartApiRequestRoute,
-  DemoStartServerFuncsRoute: DemoStartServerFuncsRoute,
-  DemoStartSsrDataOnlyRoute: DemoStartSsrDataOnlyRoute,
-  DemoStartSsrFullSsrRoute: DemoStartSsrFullSsrRoute,
-  DemoStartSsrSpaModeRoute: DemoStartSsrSpaModeRoute,
-  DemoStartSsrIndexRoute: DemoStartSsrIndexRoute,
+  DashboardRoute: DashboardRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

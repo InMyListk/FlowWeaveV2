@@ -8,6 +8,7 @@
  * @module
  */
 
+import type * as auth from "../auth.js";
 import type * as backgroundJobs from "../backgroundJobs.js";
 import type * as lib_protectedContext from "../lib/protectedContext.js";
 import type * as todos from "../todos.js";
@@ -20,6 +21,7 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
+  auth: typeof auth;
   backgroundJobs: typeof backgroundJobs;
   "lib/protectedContext": typeof lib_protectedContext;
   todos: typeof todos;
