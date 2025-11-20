@@ -1,6 +1,7 @@
 import { ClerkProvider, useAuth } from "@clerk/clerk-react";
 import { ConvexProviderWithClerk } from "convex/react-clerk";
 import { ConvexReactClient } from "convex/react";
+import { AutumnWrapper } from "@/components/AutumnWrapper";
 
 const publishableKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY as string;
 const CONVEX_URL = (import.meta as any).env.VITE_CONVEX_URL
@@ -18,7 +19,9 @@ export default function AppConvexProvider({
   return (
     <ClerkProvider publishableKey={publishableKey} >
       <ConvexProviderWithClerk client={convex} useAuth={useAuth}>
-        {children}
+        <AutumnWrapper>
+          {children}
+        </AutumnWrapper>
       </ConvexProviderWithClerk>
     </ClerkProvider >
   )

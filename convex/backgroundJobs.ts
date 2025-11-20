@@ -1,20 +1,21 @@
 import { protectedMutation, protectedQuery } from "./lib/protectedContext";
-import { internal } from "./_generated/api";
+import { api, internal } from "./_generated/api";
 import { mutation } from "./_generated/server";
+import { premiumAction, premiumMutation } from "./lib/premiumContext";
 
 export const createWorkflowsBackground = protectedMutation({
     args: {},
     handler: async (ctx, _arg) => {
         await ctx.scheduler.runAfter(
             2000,
-            internal.workflow.createWorkflow,
+            api.workflow.createWorkflow,
             {}
         );
         return { success: true, message: "Job queued" };
     },
 });
 
-export const aiGenerateContentBackground = mutation({
+export const aiGenerateContentBackground = premiumAction({
     args: {},
     handler: async (ctx, arg) => {
         const result: any = await ctx.scheduler.runAfter(

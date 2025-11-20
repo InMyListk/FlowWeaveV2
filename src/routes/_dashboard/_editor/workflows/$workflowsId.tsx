@@ -5,5 +5,6 @@ export const Route = createFileRoute('/_dashboard/_editor/workflows/$workflowsId
 })
 
 function RouteComponent() {
-  return <div>Hello "/_dashboard/_editor/$workflowId"!</div>
+  const { workflowsId } = Route.useParams();
+  return <div>workflow id: {workflowsId}"!</div>
 }
