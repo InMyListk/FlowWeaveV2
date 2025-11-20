@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as DashboardRouteImport } from './routes/_dashboard'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardRestRouteImport } from './routes/_dashboard/_rest'
@@ -19,6 +20,11 @@ import { Route as DashboardRestExecutionsExecutionsIdRouteImport } from './route
 import { Route as DashboardRestCredentialsCredentialsIdRouteImport } from './routes/_dashboard/_rest/credentials/$credentialsId'
 import { Route as DashboardEditorWorkflowsWorkflowsIdRouteImport } from './routes/_dashboard/_editor/workflows/$workflowsId'
 
+const PricingRoute = PricingRouteImport.update({
+  id: '/pricing',
+  path: '/pricing',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DashboardRoute = DashboardRouteImport.update({
   id: '/_dashboard',
   getParentRoute: () => rootRouteImport,
@@ -70,6 +76,7 @@ const DashboardEditorWorkflowsWorkflowsIdRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/pricing': typeof PricingRoute
   '/workflows': typeof DashboardRestWorkflowsRoute
   '/workflows/$workflowsId': typeof DashboardEditorWorkflowsWorkflowsIdRoute
   '/credentials/$credentialsId': typeof DashboardRestCredentialsCredentialsIdRoute
@@ -79,6 +86,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/pricing': typeof PricingRoute
   '/workflows': typeof DashboardRestWorkflowsRoute
   '/workflows/$workflowsId': typeof DashboardEditorWorkflowsWorkflowsIdRoute
   '/credentials/$credentialsId': typeof DashboardRestCredentialsCredentialsIdRoute
@@ -90,6 +98,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_dashboard': typeof DashboardRouteWithChildren
+  '/pricing': typeof PricingRoute
   '/_dashboard/_rest': typeof DashboardRestRouteWithChildren
   '/_dashboard/_rest/workflows': typeof DashboardRestWorkflowsRoute
   '/_dashboard/_editor/workflows/$workflowsId': typeof DashboardEditorWorkflowsWorkflowsIdRoute
@@ -102,6 +111,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/pricing'
     | '/workflows'
     | '/workflows/$workflowsId'
     | '/credentials/$credentialsId'
@@ -111,6 +121,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/pricing'
     | '/workflows'
     | '/workflows/$workflowsId'
     | '/credentials/$credentialsId'
@@ -121,6 +132,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/_dashboard'
+    | '/pricing'
     | '/_dashboard/_rest'
     | '/_dashboard/_rest/workflows'
     | '/_dashboard/_editor/workflows/$workflowsId'
@@ -133,10 +145,18 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DashboardRoute: typeof DashboardRouteWithChildren
+  PricingRoute: typeof PricingRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/pricing': {
+      id: '/pricing'
+      path: '/pricing'
+      fullPath: '/pricing'
+      preLoaderRoute: typeof PricingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_dashboard': {
       id: '/_dashboard'
       path: ''
@@ -243,6 +263,7 @@ const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DashboardRoute: DashboardRouteWithChildren,
+  PricingRoute: PricingRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

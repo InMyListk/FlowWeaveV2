@@ -3,6 +3,8 @@ import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupConte
 import { Link, useLocation } from "@tanstack/react-router";
 import { Image } from "@unpic/react";
 import { SignedIn, SignedOut, SignInButton, SignOutButton } from "@clerk/clerk-react";
+import { CheckoutDialog, useCustomer } from "autumn-js/react";
+import { useHasActiveSubscription } from "@/features/subscriptions/hooks/use-subscription";
 
 
 const menuItems = [
@@ -31,7 +33,9 @@ const menuItems = [
 export function AppSidebar() {
     const location = useLocation()
     const pathname = location.pathname
-
+    const { checkout } = useCustomer();
+    const { hasActiveSubscription, isLoading } = useHasActiveSubscription();
+    console.log("Sidebar subscription status:", hasActiveSubscription, isLoading);
     return (
         <Sidebar>
             <SidebarHeader>
@@ -70,16 +74,23 @@ export function AppSidebar() {
             </SidebarContent>
             <SidebarFooter>
                 <SidebarMenu>
-                    <SidebarMenuItem>
-                        <SidebarMenuButton
-                            tooltip="Upgrade to Pro"
-                            className="gap-x-4 h-10 px-4"
-                            onClick={() => { }}
-                        >
-                            <StarIcon className="w-4 h-4" />
-                            <span>Upgrade to Pro</span>
-                        </SidebarMenuButton>
-                    </SidebarMenuItem>
+                    {!hasActiveSubscription && !isLoading && (
+                        <SidebarMenuItem>
+                            <SidebarMenuButton
+                                tooltip="Upgrade to Pro"
+                                className="gap-x-4 h-10 px-4"
+                                onClick={() => {
+                                    checkout({
+                                        productId: "pro",
+                                        dialog: CheckoutDialog,
+                                    })
+                                }}
+                            >
+                                <StarIcon className="w-4 h-4" />
+                                <span>Upgrade to Pro</span>
+                            </SidebarMenuButton>
+                        </SidebarMenuItem>
+                    )}
                     <SidebarMenuItem>
                         <SidebarMenuButton
                             tooltip="Billing Portal"
@@ -104,7 +115,6 @@ export function AppSidebar() {
                             <SidebarMenuButton
                                 tooltip="Sign Out"
                                 className="gap-x-4 h-10 px-4"
-
                             >
                                 <LogInIcon />
                                 <SignInButton />
